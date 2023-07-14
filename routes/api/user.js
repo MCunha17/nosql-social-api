@@ -21,10 +21,10 @@ router
   .route('/:id')
   .get(getUserById)
   .put(updateUser)
-  .delete((req, res) => {
-    deleteUser(req, res);
-    deleteThoughtsByUserId(req.params.id);
-  });
+  .delete(async (req, res) => {
+    await deleteUser(req, res);
+    await deleteThoughtsByUserId(req.params.id);
+  });  
 
 // /api/users/:userId/friends/:friendId
 router

@@ -40,6 +40,11 @@ UserSchema.virtual('friendCount').get(function() {
   return this.friends.length;
 });
 
+// Define a virtual property 'thoughtCount'
+UserSchema.virtual('thoughtCount').get(function() {
+  return this.thoughts.length;
+});
+
 // Create a User model using the UserSchema
 const User = model('User', UserSchema);
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { User, Thought, Reaction } = require('../models');
+const { User, Thought } = require('../models');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/thoughtsDB', {
@@ -19,25 +19,31 @@ const seedData = async () => {
 
     // Thoughts
     const thoughts = await Thought.insertMany([
-      { thoughtText: 'I love life!', username: users[0].username, userId: users[0]._id },
-      { thoughtText: 'I am hungry!', username: users[1].username, userId: users[1]._id },
-      { thoughtText: 'I want a puppy!', username: users[2].username, userId: users[2]._id },
+      { 
+        thoughtText: 'I love life!', 
+        username: users[0].username, 
+        userId: users[0]._id, 
+        reactions: [
+          { reactionBody: 'Yay!', username: users[0].username }
+        ]
+      },
+      { 
+        thoughtText: 'I am hungry!', 
+        username: users[1].username, 
+        userId: users[1]._id,
+        reactions: [
+          { reactionBody: 'Me too!', username: users[1].username }
+        ] 
+      },
+      { 
+        thoughtText: 'I want a puppy!', 
+        username: users[2].username, 
+        userId: users[2]._id,
+        reactions: [
+          { reactionBody: 'I love this!', username: users[2].username }
+        ] 
+      },
     ]);
-
-    // Reactions
-    const reactions = await Reaction.insertMany([
-      { reactionBody: 'Yay!', username: users[0].username },
-      { reactionBody: 'Me too!', username: users[1].username },
-      { reactionBody: 'I love this!', username: users[2].username },
-    ]);
-
-    // Associate thoughts with reactions
-    thoughts[0].reactions.push(reactions[0]._id);
-    thoughts[1].reactions.push(reactions[1]._id);
-    thoughts[2].reactions.push(reactions[2]._id);
-
-    // Save the updated thoughts with reactions
-    await Promise.all(thoughts.map((thought) => thought.save()));
 
     console.log('Fake data seeded successfully!');
     mongoose.connection.close();
