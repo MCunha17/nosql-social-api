@@ -20,12 +20,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/thoughtsDB', {
 
 mongoose.set('debug', true);
 
-// Define the Schema and Model for the "ideas" collection
-const ideaSchema = new mongoose.Schema({
-});
-
-const Idea = mongoose.model('Idea', ideaSchema, 'ideas');
-
 // Start the API server
 app.listen(PORT, () => {
   console.log(`API Server now listening on PORT ${PORT}!`);

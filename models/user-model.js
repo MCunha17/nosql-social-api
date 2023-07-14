@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+// Define the UserSchema
 const UserSchema = new Schema({
   username: {
     type: String,
@@ -34,10 +35,12 @@ const UserSchema = new Schema({
   id: false
 });
 
+// Define a virtual property 'friendCount'
 UserSchema.virtual('friendCount').get(function() {
   return this.friends.length;
 });
 
+// Create a User model using the UserSchema
 const User = model('User', UserSchema);
 
 module.exports = User;

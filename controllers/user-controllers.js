@@ -3,6 +3,7 @@ const { User, Thought } = require('../models');
 const userController = {
     // Get all users
     getAllUsers(req, res) {
+        // Find all users
         User.find({})
             .populate({
             path: 'thoughts',
@@ -18,6 +19,7 @@ const userController = {
 
     // Get one user by id
     getUserById({ params }, res) {
+        // Find a user by their id
         User.findOne({ _id: params.id })
             .populate({
             path: 'thoughts',
@@ -39,6 +41,7 @@ const userController = {
 
     // Create a user
     createUser({ body }, res) {
+        // Create a new user with the provided data
         User.create(body)
         .then(dbUserData => res.json(dbUserData))
         .catch(err => res.status(400).json(err));
@@ -46,6 +49,7 @@ const userController = {
 
     // Update user by id
     updateUser({ params, body }, res) {
+        // Find a user by their id and update their information
         User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
             .then(dbUserData => {
                 if (!dbUserData) {
@@ -58,8 +62,9 @@ const userController = {
     },
 
     // Delete user
-deleteUser({ params }, res) {
-    User.findOneAndDelete({ _id: params.id })
+    deleteUser({ params }, res) {
+        // Find a user by their id and delete them
+        User.findOneAndDelete({ _id: params.id })
       .then(dbUserData => {
         if (!dbUserData) {
           res.status(404).json({ message: 'No user found with this id!' });
@@ -72,6 +77,7 @@ deleteUser({ params }, res) {
 
     // Add friend
     addFriend({ params }, res) {
+        // Find a user by their id and add a friend to their friend list
         User.findByIdAndUpdate(
             { _id: params.userId },
             { $push: { friends: params.friendId } },
@@ -89,6 +95,7 @@ deleteUser({ params }, res) {
 
     // Remove friend
     removeFriend({ params }, res) {
+        // Find a user by their id and remove a friend from their friend list
         User.findByIdAndUpdate(
             { _id: params.userId },
             { $pull: { friends: params.friendId } },
