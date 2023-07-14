@@ -22,7 +22,6 @@ mongoose.set('debug', true);
 
 // Define the Schema and Model for the "ideas" collection
 const ideaSchema = new mongoose.Schema({
-  // Schema fields
 });
 
 const Idea = mongoose.model('Idea', ideaSchema, 'ideas');

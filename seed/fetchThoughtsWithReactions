@@ -1,0 +1,15 @@
+const mongoose = require('mongoose');
+const Thought = require('../models/thought-model');
+
+const fetchThoughtsWithReactions = async () => {
+  try {
+    const thoughtsWithReactions = await Thought.find().populate('reactions');
+    console.log(thoughtsWithReactions);
+  } catch (error) {
+    console.error('Error fetching thoughts with reactions:', error);
+  } finally {
+    mongoose.connection.close();
+  }
+};
+
+fetchThoughtsWithReactions();

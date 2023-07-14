@@ -1,5 +1,4 @@
 const router = require('express').Router();
-
 const {
   getAllUsers,
   getUserById,
@@ -9,6 +8,7 @@ const {
   addFriend,
   removeFriend
 } = require('../../controllers/user-controllers');
+const { deleteThoughtsByUserId } = require('../../controllers/thought-controllers');
 
 // /api/users
 router
@@ -21,7 +21,10 @@ router
   .route('/:id')
   .get(getUserById)
   .put(updateUser)
-  .delete(deleteUser);
+  .delete((req, res) => {
+    deleteUser(req, res);
+    deleteThoughtsByUserId(req.params.id);
+  });
 
 // /api/users/:userId/friends/:friendId
 router
