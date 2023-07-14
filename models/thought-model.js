@@ -42,8 +42,13 @@ const ThoughtSchema = new Schema(
       default: Date.now,
       get: createdAtVal => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
     },
-    username: {
+    username: { // assuming this is the username of the User who owns this Thought
       type: String,
+      required: true
+    },
+    userId: { // Add a reference to the User model
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true
     },
     reactions: [ReactionSchema]
