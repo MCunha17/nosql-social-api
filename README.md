@@ -65,7 +65,6 @@ Resources referenced to build this application include:
 * [MongDB CRUD Operations](https://www.mongodb.com/docs/manual/crud/)
 * [MonggoDB Data Model Design](https://www.mongodb.com/docs/manual/core/data-model-design/#std-label-data-modeling-embedding)
 * [MongoDB One-to-Many Relationships](https://www.mongodb.com/docs/manual/tutorial/model-embedded-one-to-many-relationships-between-documents/)
-* []
 * [Mongoose Models](https://mongoosejs.com/docs/models.html)
 * [Mongoose Schemas](https://mongoosejs.com/docs/guide.html)
 * [How to Use findOneAndUpdate() in Mongoose](https://mongoosejs.com/docs/tutorials/findoneandupdate.html)
