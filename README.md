@@ -12,7 +12,7 @@ Social network applications are prevalent in today's digital landscape. By learn
 ![Screenshot of application](/public/assets/application-screenshot.jpg)
 
 ## Table of Contents
-* [Site](#site)
+* [Functionality](#functionality)
 * [Repository](#repository)
 * [Features](#features)
 * [Usage](#usage)
@@ -23,7 +23,7 @@ Social network applications are prevalent in today's digital landscape. By learn
 * [Resources](#resources)
 * [Questions](#questions)
 
-## Site
+## Functionality
 You can view a video of the functionality using Insomnia here [here](https://drive.google.com/file/d/1NTddNbJELPA3zj0SpjmnzcTY9BrMNdtj/view?usp=sharing).
 
 ## Repository
