@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const { User, Thought } = require('../models');
+const User = require('../models/user-model');
+const Thought = require('../models/thought-model');
 
-// Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/thoughtsDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -18,32 +18,26 @@ const seedData = async () => {
     ]);
 
     // Thoughts
-    const thoughts = await Thought.insertMany([
-      { 
-        thoughtText: 'I love life!', 
-        username: users[0].username, 
-        userId: users[0]._id, 
+    const thoughts = await Promise.all(users.map((user, index) => {
+      const thoughtTexts = ['I love life!', 'I am hungry!', 'I want a puppy!'];
+      const reactions = ['Yay!', 'Me too!', 'I love this!'];
+
+      const thought = new Thought({
+        thoughtText: thoughtTexts[index],
+        username: user.username,
+        userId: user._id,
         reactions: [
-          { reactionBody: 'Yay!', username: users[0].username }
+          { reactionBody: reactions[index], username: user.username }
         ]
-      },
-      { 
-        thoughtText: 'I am hungry!', 
-        username: users[1].username, 
-        userId: users[1]._id,
-        reactions: [
-          { reactionBody: 'Me too!', username: users[1].username }
-        ] 
-      },
-      { 
-        thoughtText: 'I want a puppy!', 
-        username: users[2].username, 
-        userId: users[2]._id,
-        reactions: [
-          { reactionBody: 'I love this!', username: users[2].username }
-        ] 
-      },
-    ]);
+      });
+
+      return thought.save();
+    }));
+
+    // Add thoughts to the corresponding users
+    await Promise.all(users.map((user, index) => {
+      return User.findByIdAndUpdate(user._id, { $push: { thoughts: thoughts[index]._id } }, { new: true });
+    }));
 
     console.log('Fake data seeded successfully!');
     mongoose.connection.close();

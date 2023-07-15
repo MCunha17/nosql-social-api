@@ -1,12 +1,11 @@
 const { Schema, model } = require('mongoose');
 
-// Define the UserSchema
 const UserSchema = new Schema({
   username: {
     type: String,
     unique: true,
     required: 'Username required.',
-    trim: true
+    trim: true,
   },
   email: {
     type: String,
@@ -45,7 +44,6 @@ UserSchema.virtual('thoughtCount').get(function() {
   return this.thoughts.length;
 });
 
-// Create a User model using the UserSchema
 const User = model('User', UserSchema);
 
 module.exports = User;

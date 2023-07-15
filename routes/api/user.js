@@ -8,7 +8,9 @@ const {
   addFriend,
   removeFriend
 } = require('../../controllers/user-controllers');
-const { deleteThoughtsByUserId } = require('../../controllers/thought-controllers');
+
+// Import the thoughtController
+const thoughtController = require('../../controllers/thought-controllers');
 
 // /api/users
 router
@@ -22,8 +24,14 @@ router
   .get(getUserById)
   .put(updateUser)
   .delete(async (req, res) => {
-    await deleteUser(req, res);
-    await deleteThoughtsByUserId(req.params.id);
+    try {
+      await deleteUser(req, res);
+      await thoughtController.deleteThoughtsByUserId(req.params.id);
+      res.status(200).json({ message: 'User and associated thoughts successfully deleted' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while deleting user and thoughts.' });
+    }
   });  
 
 // /api/users/:userId/friends/:friendId

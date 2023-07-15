@@ -1,12 +1,17 @@
 const { User, Thought } = require('../models');
 
 const userController = {
-    // Get all users
-    getAllUsers(req, res) {
-        // Find all users
-        User.find({})
-            .populate({
+   
+// Get all users
+getAllUsers(req, res) {
+    // Find all users
+    User.find({})
+        .populate({
             path: 'thoughts',
+            select: '-__v'
+        })
+        .populate({
+            path: 'friends',
             select: '-__v'
         })
         .select('-__v')
@@ -15,16 +20,20 @@ const userController = {
             console.log(err);
             res.status(400).json(err);
         });
-    },
+},
 
     // Get one user by id
-    getUserById({ params }, res) {
-        // Find a user by their id
-        User.findOne({ _id: params.id })
-            .populate({
+getUserById({ params }, res) {
+    // Find a user by their id
+    User.findOne({ _id: params.id })
+        .populate({
             path: 'thoughts',
             select: '-__v'
-            })
+        })
+        .populate({
+            path: 'friends',
+            select: '-__v'
+        })
         .select('-__v')
         .then(dbUserData => {
         if (!dbUserData) {
@@ -37,7 +46,7 @@ const userController = {
             console.log(err);
             res.status(400).json(err);
         });
-    },
+},
 
     // Create a user
     createUser({ body }, res) {
@@ -53,7 +62,7 @@ const userController = {
         User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
             .then(dbUserData => {
                 if (!dbUserData) {
-                    res.status(404).json({ message: 'No user found with this id!' });
+                    res.status(404).json({ message: 'No user found with this id.' });
                     return;
                 }
                 res.json(dbUserData);
@@ -62,18 +71,20 @@ const userController = {
     },
 
     // Delete user
-    deleteUser({ params }, res) {
+    deleteUser({ params }) {
         // Find a user by their id and delete them
-        User.findOneAndDelete({ _id: params.id })
-      .then(dbUserData => {
-        if (!dbUserData) {
-          res.status(404).json({ message: 'No user found with this id!' });
-          return;
-        }
-        res.json({ message: 'User successfully deleted' });
-      })
-      .catch(err => res.status(400).json(err));
-  },
+        return new Promise((resolve, reject) => {
+            User.findOneAndDelete({ _id: params.id })
+            .then(dbUserData => {
+                if (!dbUserData) {
+                    reject({ status: 404, message: 'No user found with this id.' });
+                    return;
+                }
+                resolve({ message: 'User successfully deleted.' });
+            })
+            .catch(err => reject({ status: 400, err }));
+        });
+    },
 
     // Add friend
     addFriend({ params }, res) {
@@ -85,7 +96,7 @@ const userController = {
         )
         .then(dbUserData => {
         if (!dbUserData) {
-            res.status(404).json({ message: 'No user found with this id!' });
+            res.status(404).json({ message: 'No user found with this id.' });
             return;
             }
                 res.json(dbUserData);
