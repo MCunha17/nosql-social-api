@@ -5,7 +5,9 @@
 The displayed license badge is sourced from <a href="https://shields.io/category/license">Shields IO</a>.
 
 ## Description
-An API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. The API uses MongoDB database for handling large amounts of unstructured data, Express.js for routing, and Mongoose ODM.
+An API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. The API uses MongoDB database for handling unstructured data, Express.js for routing, and Mongoose ODM.
+
+Social network applications are prevalent in today's digital landscape. By learning how to build an API that enables users to share thoughts, react to friends' thoughts, and create friend lists, developing this application provided me with insights into the functionality required for developing similar applications.
 
 ![Screenshot of application](/public/assets/application-screenshot.jpg)
 
@@ -59,6 +61,15 @@ This project is licensed under: MIT License.
 Currently, there are no tests implemented for this project. If you would like to contribute, please follow the [contributing guidelines](#contributing).
 
 ## Resources
+Resources referenced to build this application include:
+* [MongDB CRUD Operations](https://www.mongodb.com/docs/manual/crud/)
+* [MonggoDB Data Model Design](https://www.mongodb.com/docs/manual/core/data-model-design/#std-label-data-modeling-embedding)
+* [MongoDB One-to-Many Relationships](https://www.mongodb.com/docs/manual/tutorial/model-embedded-one-to-many-relationships-between-documents/)
+* []
+* [Mongoose Models](https://mongoosejs.com/docs/models.html)
+* [Mongoose Schemas](https://mongoosejs.com/docs/guide.html)
+* [How to Use findOneAndUpdate() in Mongoose](https://mongoosejs.com/docs/tutorials/findoneandupdate.html)
+* [Mongoose Virtuals](https://mongoosejs.com/docs/tutorials/virtuals.html)
 
 ## Questions
 If you have any questions, please visit my GitHub profile [MCunha17](https://github.com/MCunha17) or contact me at cunha.maria.theresa@gmail.com.
